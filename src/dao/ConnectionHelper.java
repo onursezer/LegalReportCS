@@ -1,5 +1,6 @@
 package dao;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,7 +15,7 @@ public class ConnectionHelper {
 	
 	private static ConnectionHelper instance = null;
 	
-	protected ConnectionHelper(){}
+	private ConnectionHelper(){}
 	
 	public static ConnectionHelper getInstance() {
 
@@ -28,7 +29,7 @@ public class ConnectionHelper {
 			return getConnectionLocal();
 	}
 
-	public Connection getConnectionLocal() throws Exception {
+	private Connection getConnectionLocal() throws Exception {
 		Connection newConn = null;
 		Class.forName(driver);
 		newConn = DriverManager.getConnection(url, userName, password);

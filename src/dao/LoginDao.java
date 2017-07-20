@@ -1,21 +1,28 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+public class LoginDao {
 
-public class LoginDao extends ConnectionHelper {
+	
+	
+	public LoginDao() {
+		// TODO Auto-generated constructor stub
+	}
 
-	public boolean validate(String name, String pass) {
+	public static boolean validate(String name, String pass) {
 		boolean status = false;
 		Connection conn = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
 		try {
-			conn = getInstance().getConnection();
+			conn = ConnectionHelper.getInstance().getConnection();
 			pst = conn
-					.prepareStatement("select * from denemepersons where username=? and password=?");
+					.prepareStatement("select * from deneme_persons where username=? and password=?");
 			pst.setString(1, name);
 			pst.setString(2, pass);
 
@@ -24,9 +31,9 @@ public class LoginDao extends ConnectionHelper {
 
 		} catch (Exception e) {
 			System.out.println(e);
-			closeResultSet(rs);
-			closePreparedStatement(pst);
-			closeConnection(conn);
+			ConnectionHelper.getInstance().closeResultSet(rs);
+			ConnectionHelper.getInstance().closePreparedStatement(pst);
+			ConnectionHelper.getInstance().closeConnection(conn);
 
 		}
 		return status;
