@@ -14,7 +14,7 @@ public class Person {
     
     private String username;
     private String department;
-    private String role;
+    private String authority;
     private String password;
     private String confirmPassword;
 
@@ -34,12 +34,12 @@ public class Person {
         this.department = department;
     }
 
-    public String getRole() {
-        return role;
+    public String getAuthority() {
+        return authority;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 
     public String getPassword() {
@@ -60,9 +60,13 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" + "username=" + username + ", department=" + department + ", role=" + role + 
-                ", password=" + password + ", confirmPassword=" + confirmPassword + '}';
+        return "Person{" + "username=" + username + ", department=" + department + ", authority=" + authority 
+                + ", password=" + password + ", confirmPassword=" + confirmPassword + '}';
     }
+
+   
+    
+    
     
     
 }

@@ -22,17 +22,18 @@ public class RegisterServlet extends HttpServlet {
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+        RegisterDao rDao = new RegisterDao();
 
         Person person = new Person();
         person.setUsername(request.getParameter("username"));
-        person.setRole(request.getParameter("role"));
+        person.setAuthority(request.getParameter("role"));
         person.setDepartment(request.getParameter("department"));
         person.setPassword(request.getParameter("password"));
         person.setConfirmPassword(request.getParameter("confirm"));
 
         HttpSession session = request.getSession(false);
 
-        if (RegisterDao.insertUserToDB(person)) {
+        if (rDao.insertUserToDB(person)) {
             if (session != null) {
                 session.setAttribute("register", "true");    
             }
@@ -44,7 +45,7 @@ public class RegisterServlet extends HttpServlet {
             }
             RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
             rd.include(request, response);
-        }
+        }   
 
         out.close();
     }
