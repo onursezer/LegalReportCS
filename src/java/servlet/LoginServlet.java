@@ -31,6 +31,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("name", username);
                 session.setAttribute("tableQuery", "bos");
                 session.setAttribute("login", "true");
+                session.setAttribute("date", "");
             }
             if(LoginDao.isAdmin(username))
                 session.setAttribute("admin", "true");

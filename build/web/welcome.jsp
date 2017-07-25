@@ -1,3 +1,7 @@
+<%@page import="bean.UpdateData"%>
+<%@page import="dao.UpdateDao"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 
@@ -61,8 +65,8 @@
 
                                 <%
                                     Connection con = null;
-                                    ResultSet rs2 = null;
                                     PreparedStatement pst = null;
+                                    List<UpdateData> listNewData = new ArrayList<UpdateData>();
                                     try {
                                         con = ConnectionHelper.getInstance().getConnection();
 
@@ -79,7 +83,7 @@
 
 
                                 %>
-                                <option value="<%=freportName%>"><%=freportCode%> - <%=freportName%></option>
+                                <option value="<%=freportCode%>"><%=freportCode%> - <%=freportName%></option>
                                 <%
                                         }
                                     } catch (Exception e) {
@@ -104,7 +108,8 @@
             <form action="updateServlet" method="post"> 
                 <div class="ui-widget">
                     <label>Date: &nbsp &nbsp &nbsp</label>
-                    <input type="text"  name="update" id="update"  placeholder="YYYYMMDD"/>
+                   
+                    <input type="text"  name="updateText" id="updateText"  value=<%=session.getAttribute("date")%>     />
                     <input class="btn btn-primary" type="submit" value="Update">
                 </div>
                 </br></br></br>
@@ -119,87 +124,91 @@
                     <tbody class="points_table_scrollbar">
 
                         <%
-                            String rowName = null;
-                            String row = "row";
-                            LoginDao lDao = new LoginDao();
-                            Connection conn = ConnectionHelper.getInstance().getConnection();
+                        String rowName = null;
+                        String row = "row";
+                        LoginDao lDao = new LoginDao();
+                        Connection conn = ConnectionHelper.getInstance().getConnection();
 
-                            Statement stmt = conn.createStatement();
-                            ResultSet rs = stmt.executeQuery("select a.parameter,a.prm_value from rasman_sy_report_deneme_other "
-                                    + "a,rasman_sy_legal_report_deneme b where a.report_no=b.report_no and b.report_name = '" + session.getAttribute("tableQuery") + "'");
+                        Statement stmt = conn.createStatement();
+                        ResultSet rs = stmt.executeQuery("select a.parameter,a.prm_value from rasman_sy_report_deneme_other "
+                                + "a,rasman_sy_legal_report_deneme b where a.report_no=b.report_no and b.report_code = '" + session.getAttribute("tableQuery") + "' order by a.parameter");
 
-                            ResultSetMetaData rsmd = rs.getMetaData();
+                        ResultSetMetaData rsmd = rs.getMetaData();
 
-                            int count = 0;
-                            while (rs.next()) {
-                                ++count;
-                                rowName = row + Integer.toString(count);
-                                System.out.println(rowName);
-                                if (count % 2 == 0) {
-                        %>
-                        <tr class="even">
-                            <%
-                                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                                    if (i == 1) {
+                        int count = 0;
+                        while (rs.next()) {
+                            ++count;
+                            rowName = row + Integer.toString(count);
+                            System.out.println(rowName);
+                            if (count % 2 == 0) {
                             %>
-                            <td class="col-xs-7">
-                                <%= rs.getString(i)%>
-                            </td>
-                            <%
-                            } else {
-                            %>
-                            <td class="col-xs-4 ">
-                                <%System.out.println("rowww : " + rowName);%>
-                                <input type="text" id="<%=rowName%>" name="<%=rowName%>" value=<%= rs.getString(i)%>>
-                            </td>
-                            <%
-                                }
-                            %>
+                                <tr class="even">
+                                    <%
+                                        for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                                            if (i == 1) {
+                                    %>
+                                    <td class="col-xs-7">
+                                        <%= rs.getString(i)%>
+                                    </td>
+                                    <%
+                                    } else {
+                                    %>
+                                    <td class="col-xs-4 ">
+                                        <%System.out.println("rowww : " + rowName);
+                                            listNewData.add(new UpdateData(rowName, rs.getString(1), (String)session.getAttribute("tableQuery"), rs.getString(i)));
+                                        %>
+                                        <input type="text" id="<%=rowName%>" name="<%=rowName%>" value=<%= rs.getString(i)%>>
+                                    </td>
+                                    <%
+                                        }
+                                    %>
 
-                            <%
-                                }
-                            %>                   
-                        </tr>
-                        <%
-                        } else {
-                        %>           
-                        <tr class="odd">
-                            <%
-                                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                                    if (i == 1) {
-                            %>
-                            <td class="col-xs-7">
-                                <%= rs.getString(i)%>
-                            </td>
-                            <%
-                            } else {
-                            %>
-                            <td class="col-xs-4 ">
-                                <input type="text" id=<%=rowName%> name<%=rowName%> value=<%= rs.getString(i)%>>
-                            </td>
-                            <%
-                                }
-                            %>
+                                    <%
+                                        }
+                                    %>                   
+                                </tr>
+                                <%
+                                } else {
+                                %>           
+                                <tr class="odd">
+                                    <%
+                                        for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                                            if (i == 1) {
+                                    %>
+                                    <td class="col-xs-7">
+                                        <%= rs.getString(i)%>
+                                    </td>
+                                    <%
+                                    } else {
+                                    %>
+                                    <td class="col-xs-4 ">
+                                        <%System.out.println("rowww : " + rowName);
+                                            listNewData.add(new UpdateData(rowName, rs.getString(1), (String)session.getAttribute("tableQuery"), rs.getString(i)));
+                                        %>
+                                        <input type="text" id="<%=rowName%>" name="<%=rowName%>" value=<%= rs.getString(i)%>>
+                                    </td>
+                                    <%
+                                        }
+                                    %>
 
-                            <%
-                                }
-                            %>                   
-                        </tr>
-                        <%
-                                }
-                            }
-                            if (count == 0) {
-                        %>
-                        <tr class="even">
-                            <td class="col-xs-7">           </td>
-                            <td class="col-xs-4">           </td>
-                        </tr>
-                        <% }%>
-
-
-
-
-
+                                    <%
+                                        }
+                                    %>                   
+                                </tr>
+                                <%
+                                        }
+                                    }
+                                    if (count == 0) {
+                                %>
+                                <tr class="even">
+                                    <td class="col-xs-7">           </td>
+                                    <td class="col-xs-4">           </td>
+                                </tr>
+                                <% }
+                                session.setAttribute("rowCount", count);
+                                session.setAttribute("listData", listNewData);
+                                %>
+                                    
                     </tbody>
                 </table>
             </form>
@@ -215,4 +224,3 @@
 
     </body>
 </html>
-

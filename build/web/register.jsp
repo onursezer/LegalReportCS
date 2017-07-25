@@ -31,7 +31,7 @@
     </head>
     <body>	
         <%
-                if (session.getAttribute("login") != null) {  %>
+            if (session.getAttribute("login") != null) {  %>
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -87,40 +87,40 @@
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-university" aria-hidden="true"></i></span>
-                                    
+
                                     <select name="department">
-                                <%
-                                    Connection con = null;
-                                    ResultSet rs2 = null;
-                                    PreparedStatement pst = null;
-                                    try {
-                                        con = ConnectionHelper.getInstance().getConnection();
+                                        <%
+                                            Connection con = null;
+                                            ResultSet rs2 = null;
+                                            PreparedStatement pst = null;
+                                            try {
+                                                con = ConnectionHelper.getInstance().getConnection();
 
-                                        String sql1 = "select DISTINCT (bank_department) from rasman_sy_legal_report_deneme ";
-                                        pst = con.prepareStatement(sql1);
-                                        ResultSet rs = pst.executeQuery();
+                                                String sql1 = "select DISTINCT (bank_department) from rasman_sy_legal_report_deneme ";
+                                                pst = con.prepareStatement(sql1);
+                                                ResultSet rs = pst.executeQuery();
 
-                                        while (rs.next()) {
+                                                while (rs.next()) {
 
-                                            String department = rs.getString("bank_department");
+                                                    String department = rs.getString("bank_department");
 
-                                %>
-                                <option value="<%=department%>"><%=department%></option>
-                                <%
-                                        }
-                                    } catch (Exception e) {
-                                        out.print(e);
-                                    }
-                                %>
+                                        %>
+                                        <option value="<%=department%>"><%=department%></option>
+                                        <%
+                                                }
+                                            } catch (Exception e) {
+                                                out.print(e);
+                                            }
+                                        %>
 
-                            </select>
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
+                                    </select>
+
+
+
+
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -150,7 +150,7 @@
 
 
                         <div class="form-group ">
-                            <input id="submit" type="submit" class="btn btn-primary btn-lg btn-block login-button" value="Register" />
+                            <input onclick="AlertUyari()" id="submit" type="submit" class="btn btn-primary btn-lg btn-block login-button" value="Register" />
                         </div>
 
                     </form>
@@ -164,6 +164,16 @@
         <jsp:forward page = "index.jsp" />
         <%}%> 
         <script type="text/javascript" src="assets/js/bootstrap.js"></script> 
+        <script>
+            function AlertUyari() {
+            <%if (session.getAttribute("register") == "true") {%>
+                alert("Kayit Basarili...");
+            <%} else%>
+                alert("Hatali")
+            }
+        </script> 
+
+
 
     </body>
 </html>

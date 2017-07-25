@@ -9,8 +9,6 @@ import bean.Person;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -24,19 +22,19 @@ public class RegisterDao {
         Connection conn = null;
         PreparedStatement pst = null;
 
-        if( person.getAuthority().equals("") || person.getConfirmPassword().equals("") ||
-                person.getPassword().equals("") || person.getUsername().equals(""))
+        if (person.getAuthority().equals("") || person.getConfirmPassword().equals("")
+                || person.getPassword().equals("") || person.getUsername().equals("")) {
             return false;
-                
+        }
+
         if (!(person.getPassword().equals(person.getConfirmPassword()))) {
             System.out.println("Hata");
             return false;
         }
 
-        if ( isUser(person.getUsername())) {
+        if (isUser(person.getUsername())) {
             return false;
         }
-        
 
         System.out.println(person);
         try {
@@ -51,10 +49,11 @@ public class RegisterDao {
             pst.setString(3, person.getAuthority());
             pst.setString(4, person.getDepartment());
 
-            pst.executeQuery();
+            pst.executeUpdate();
 
         } catch (Exception e) {
             System.out.println(e);
+        } finally {
             ConnectionHelper.getInstance().closePreparedStatement(pst);
             ConnectionHelper.getInstance().closeConnection(conn);
         }
@@ -78,8 +77,11 @@ public class RegisterDao {
             status = rs.next();
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            ConnectionHelper.getInstance().closeResultSet(rs);
+            ConnectionHelper.getInstance().closePreparedStatement(pst);
+            ConnectionHelper.getInstance().closeConnection(conn);
         }
-
         return status;
     }
 }

@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import dao.SearchDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -36,6 +37,8 @@ public class SearchServlet extends HttpServlet {
         else
             System.out.println("sesion error");
 
+        SearchDao sDao = new SearchDao();
+        session.setAttribute("date", sDao.getDate(tableQuery));  
         
         RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
         rd.forward(request, response);
