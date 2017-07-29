@@ -8,7 +8,6 @@ package servlet;
 import bean.UpdateData;
 import dao.UpdateDao;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -27,16 +26,16 @@ public class UpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        boolean bDate = false, bData = false;
         UpdateDao uDao = new UpdateDao();
         HttpSession session = request.getSession(); 
         String reportCode = (String) session.getAttribute("tableQuery");
         System.out.println(reportCode);
         
-        String updateText =  request.getParameter("updateText");
-        System.out.println("updateText: " + updateText);
-        uDao.updateDate(updateText, reportCode);    /// update date
-        session.setAttribute("date", updateText);
+        String datepicker =  request.getParameter("datepicker");
+        System.out.println("updateText: " + datepicker);
+        bDate = uDao.updateDate(datepicker, reportCode);    /// update date
+        session.setAttribute("date", datepicker);
         
         
         int count = (int) session.getAttribute("rowCount");
@@ -51,7 +50,14 @@ public class UpdateServlet extends HttpServlet {
         }
 
         List<UpdateData> listNewData = (List<UpdateData>) session.getAttribute("listData");
-        uDao.updateParameterValue(list, listNewData);
+        bData = uDao.updateParameterValue(list, listNewData);
+        
+        if(bDate == true && bData == true){
+            session.setAttribute("noticeUpdate", "true");
+        }
+        else
+           session.setAttribute("noticeUpdate", "false"); 
+        
         RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
         rd.forward(request, response);
     }

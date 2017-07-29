@@ -16,6 +16,14 @@
         <servlet-name>UpdateServlet</servlet-name>
         <servlet-class>servlet.UpdateServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SesionChange</servlet-name>
+        <servlet-class>servlet.SesionChange</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PrepareData</servlet-name>
+        <servlet-class>servlet.PrepareDataServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>login</servlet-name>
         <url-pattern>/loginServlet</url-pattern>
@@ -31,6 +39,14 @@
     <servlet-mapping>
         <servlet-name>UpdateServlet</servlet-name>
         <url-pattern>/updateServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SesionChange</servlet-name>
+        <url-pattern>/sesionChange</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrepareData</servlet-name>
+        <url-pattern>/prepareData</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

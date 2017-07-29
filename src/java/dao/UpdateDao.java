@@ -22,6 +22,10 @@ public class UpdateDao {
         boolean status = false;
         Connection conn = null;
         PreparedStatement pst = null;
+        if(reportCode.equals(" "))
+        {
+            return false;
+        }
         try {
             String updateTableSQL = "UPDATE rasman_sy_report_deneme SET prm_value = ? where prm_owner = ? ";
 
@@ -59,9 +63,9 @@ public class UpdateDao {
                 conn = ConnectionHelper.getInstance().getConnection();
                 pst = conn.prepareStatement(updateTableSQL);
                 
-                System.out.println("prmValue.get(i) : " + prmValue.get(i));
-                System.out.println("listNewData.get(i).getParameterName() : " + listNewData.get(i).getParameterName());
-                System.out.println("listNewData.get(i).getReportCode() : " + listNewData.get(i).getReportCode());
+//                System.out.println("prmValue.get(i) : " + prmValue.get(i));
+//                System.out.println("listNewData.get(i).getParameterName() : " + listNewData.get(i).getParameterName());
+//                System.out.println("listNewData.get(i).getReportCode() : " + listNewData.get(i).getReportCode());
                 pst.setString(1, prmValue.get(i));
                 pst.setString(2, listNewData.get(i).getParameterName());
                 pst.setString(3, listNewData.get(i).getReportCode());

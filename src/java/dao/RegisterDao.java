@@ -9,6 +9,7 @@ import bean.Person;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 /**
  *
@@ -16,7 +17,7 @@ import java.sql.ResultSet;
  */
 public class RegisterDao {
 
-    public boolean insertUserToDB(Person person) {
+    public boolean insertUserToDB(Person person, List<String> notice) {
 
         boolean status = false;
         Connection conn = null;
@@ -24,15 +25,20 @@ public class RegisterDao {
 
         if (person.getAuthority().equals("") || person.getConfirmPassword().equals("")
                 || person.getPassword().equals("") || person.getUsername().equals("")) {
+            notice.add("There were problems creating account. Missing entry !");
+            System.out.println("eksik");
             return false;
         }
 
         if (!(person.getPassword().equals(person.getConfirmPassword()))) {
+            notice.add("There were problems creating account. Password does not match !");
             System.out.println("Hata");
             return false;
         }
 
         if (isUser(person.getUsername())) {
+            notice.add("There were problems creating account. This account was added before !");
+            System.out.println("daha once eklenmis");
             return false;
         }
 
@@ -57,7 +63,7 @@ public class RegisterDao {
             ConnectionHelper.getInstance().closePreparedStatement(pst);
             ConnectionHelper.getInstance().closeConnection(conn);
         }
-        System.out.println("gerceklesit");
+        notice.add("Success. The account was created !");
         return true;
     }
 

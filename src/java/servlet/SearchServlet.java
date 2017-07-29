@@ -25,14 +25,24 @@ public class SearchServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String tableQuery = request.getParameter("search");
-        System.out.println( "asd : " + tableQuery  );
-        System.out.println("denememe");
+        String tableQuery = null;
+        String str = request.getParameter("search");        
         
+        String[] tokens = str.split(" - ");
+
+        int i = 0;
+        for (String t : tokens)
+        {
+            if(i == 0)
+                tableQuery = t;
+            System.out.println(t);
+            ++i;
+        }
         
         HttpSession session = request.getSession(false);
         if(session!=null){
                 session.setAttribute("tableQuery", tableQuery);
+                session.setAttribute("nameOfReport", str);
         }
         else
             System.out.println("sesion error");

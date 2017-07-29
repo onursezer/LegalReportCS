@@ -8,10 +8,11 @@
 <!DOCTYPE html>
 <html lang="tr">
     <head> 
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
-
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- Website CSS style -->
         <link rel="stylesheet" type="text/css" href="assets/css/main.css">
 
@@ -27,7 +28,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <title>Admin</title>
+        <title>Legal Report</title>
     </head>
     <body>	
         <%
@@ -39,13 +40,27 @@
                 </div>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="register.jsp"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+                    <li> <a href = "<%=request.getContextPath()%>/sesionChange?item=bos"><span class="glyphicon glyphicon-user"></span> Register</a></li>
                     <li><a href="logout.jsp"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
                 </ul>
             </div>
         </nav>
 
         <div class="container">
+            <%if(((String)session.getAttribute("register")).equals("false")){%>
+            <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <span><strong>Notice: </strong> <%=session.getAttribute("notice")%> </span>
+            </div>
+            <%}else if(((String)session.getAttribute("register")).equals("true")){%>
+            <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <span><strong>Notice: </strong> <%=session.getAttribute("notice")%> </span>
+            </div>
+           
+            <%}
+                session.setAttribute("register", " ");
+            %>
             <div class="row main">
                 <div class="panel-heading">
                     <div class="panel-title text-center">
@@ -115,12 +130,6 @@
 
                                     </select>
 
-
-
-
-
-
-
                                 </div>
                             </div>
                         </div>
@@ -147,10 +156,8 @@
                             </div>
                         </div>
 
-
-
-                        <div class="form-group ">
-                            <input onclick="AlertUyari()" id="submit" type="submit" class="btn btn-primary btn-lg btn-block login-button" value="Register" />
+                        <div class="form-group">
+                            <input  id="submit" type="submit" class="btn btn-primary btn-lg btn-block login-button" value="Register" />
                         </div>
 
                     </form>
@@ -164,16 +171,6 @@
         <jsp:forward page = "index.jsp" />
         <%}%> 
         <script type="text/javascript" src="assets/js/bootstrap.js"></script> 
-        <script>
-            function AlertUyari() {
-            <%if (session.getAttribute("register") == "true") {%>
-                alert("Kayit Basarili...");
-            <%} else%>
-                alert("Hatali")
-            }
-        </script> 
-
-
-
+        
     </body>
 </html>

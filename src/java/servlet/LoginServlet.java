@@ -24,14 +24,19 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String pass = request.getParameter("userpass");
 
+        HttpSession session = request.getSession(true);
         if (LoginDao.validate(username, pass)) {
-            HttpSession session = request.getSession(true);
+
             if (session != null) {
-                System.out.println("loginserv : if");
                 session.setAttribute("name", username);
-                session.setAttribute("tableQuery", "bos");
+                session.setAttribute("tableQuery", " ");
                 session.setAttribute("login", "true");
                 session.setAttribute("date", "");
+                session.setAttribute("register", " ");
+                session.setAttribute("noticeData","");
+                session.setAttribute("noticeUpdate","");
+                session.setAttribute("nameOfReport", " ");
+                session.setAttribute("waitBar", " ");
             }
             if(LoginDao.isAdmin(username))
                 session.setAttribute("admin", "true");
@@ -40,6 +45,9 @@ public class LoginServlet extends HttpServlet {
             
             response.sendRedirect("welcome.jsp");
         } else {
+            if (session != null) {
+                session.setAttribute("login", "false");
+            }
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             out.print("<p style=\"color:red\">Sorry username or password error</p>");
             rd.include(request, response);

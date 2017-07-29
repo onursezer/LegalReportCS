@@ -63,10 +63,5 @@ public class Person {
         return "Person{" + "username=" + username + ", department=" + department + ", authority=" + authority 
                 + ", password=" + password + ", confirmPassword=" + confirmPassword + '}';
     }
-
    
-    
-    
-    
-    
 }

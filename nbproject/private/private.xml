@@ -12,6 +12,8 @@
             <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/web/register.jsp</file>
             <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/web/images/bg05.jpg</file>
             <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/src/java/bean/Person.java</file>
+            <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/src/java/servlet/PrepareDataServlet.java</file>
+            <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/src/java/dao/PrepareDataDao.java</file>
             <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/web/images/error-img.png</file>
             <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/web/images/logo.png</file>
             <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/web/css/register.css</file>
@@ -19,6 +21,7 @@
             <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/src/java/dao/ConnectionHelper.java</file>
             <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/src/java/dao/UpdateDao.java</file>
             <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/web/WEB-INF/web.xml</file>
+            <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/web/css/ErrorStyle.css</file>
             <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/web/index.jsp</file>
             <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/web/logout.jsp</file>
             <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/src/java/dao/RegisterDao.java</file>
@@ -29,6 +32,7 @@
             <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/src/java/servlet/LoginServlet.java</file>
             <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/src/java/servlet/UpdateServlet.java</file>
             <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/web/js/welcome.js</file>
+            <file>file:/D:/Users/onur.sezer/Documents/NetBeansProjects/LegalReport/src/java/servlet/SesionChange.java</file>
         </group>
     </open-files>
 </project-private>
